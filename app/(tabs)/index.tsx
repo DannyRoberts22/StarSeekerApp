@@ -1,6 +1,7 @@
-import { StyledText } from '@/components/StyledText';
-import { View } from '@/components/Themed';
 import { StyleSheet } from 'react-native';
+
+import { StyledText } from '@/src/components/StyledText';
+import { View } from '@/src/components/Themed';
 
 export default function GatesScreen() {
   return (

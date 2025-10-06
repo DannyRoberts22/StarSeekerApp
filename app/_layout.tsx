@@ -1,17 +1,23 @@
+import { useEffect, useState } from 'react';
+
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
-import 'react-native-reanimated';
-import AnimatedSplash from "../components/AnimatedSplash";
 
-import { useColorScheme } from '@/components/useColorScheme';
+import AnimatedSplash from '@/src/components/AnimatedSplash';
+import { useColorScheme } from '@/src/components/useColorScheme';
+
+import 'react-native-reanimated';
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary
+  ErrorBoundary,
 } from 'expo-router';
 
 export const unstable_settings = {
@@ -44,7 +50,8 @@ export default function RootLayout() {
     return null;
   }
 
-  if (showSplash) return <AnimatedSplash onFinish={() => setShowSplash(false)} />;
+  if (showSplash)
+    return <AnimatedSplash onFinish={() => setShowSplash(false)} />;
   return <RootLayoutNav />;
 }
 

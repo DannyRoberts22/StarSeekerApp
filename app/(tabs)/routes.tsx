@@ -1,12 +1,15 @@
-import { StyledText } from '@/components/StyledText';
-import { View } from '@/components/Themed';
 import { StyleSheet } from 'react-native';
+
+import { StyledText } from '@/src/components/StyledText';
+import { View } from '@/src/components/Themed';
 
 export default function RoutesScreen() {
   return (
     <View style={styles.container}>
       <StyledText>Hello Routes</StyledText>
-      <StyledText style={styles.subtitle}>Find cheapest routes between gates</StyledText>
+      <StyledText style={styles.subtitle}>
+        Find cheapest routes between gates
+      </StyledText>
     </View>
   );
 }

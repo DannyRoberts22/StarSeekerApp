@@ -1,7 +1,8 @@
-import * as SplashScreen from "expo-splash-screen";
-import LottieView from "lottie-react-native";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+
+import * as SplashScreen from 'expo-splash-screen';
+import LottieView from 'lottie-react-native';
 
 type Props = {
   onFinish?: () => void;
@@ -11,12 +12,14 @@ type Props = {
 
 SplashScreen.preventAutoHideAsync();
 
-export default function AnimatedSplash({ onFinish, autoPlay = true, loop = false }: Props) {
+export default function AnimatedSplash({
+  onFinish,
+  autoPlay = true,
+  loop = false,
+}: Props) {
   const [ready, setReady] = useState(false);
   const [lottieError, setLottieError] = useState(false);
   const lottieRef = useRef<LottieView>(null);
-
-  const _logo = require("../assets/lottie/starseeker_logo.png");
 
   useEffect(() => {
     let mounted = true;
@@ -27,7 +30,9 @@ export default function AnimatedSplash({ onFinish, autoPlay = true, loop = false
         if (mounted) setReady(true);
       }
     })();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const onLayout = useCallback(async () => {
@@ -40,7 +45,7 @@ export default function AnimatedSplash({ onFinish, autoPlay = true, loop = false
   }, [ready, autoPlay]);
 
   const handleLottieError = useCallback(() => {
-    console.log("Lottie animation failed to load");
+    console.log('Lottie animation failed to load');
     setLottieError(true);
     setTimeout(() => {
       onFinish?.();
@@ -61,7 +66,7 @@ export default function AnimatedSplash({ onFinish, autoPlay = true, loop = false
     <View style={styles.container} onLayout={onLayout}>
       <LottieView
         ref={lottieRef}
-        source={require("../assets/lottie/starseeker_splash_lottie.json")}
+        source={require('../../assets/lottie/starseeker_splash_lottie.json')}
         autoPlay={autoPlay}
         loop={loop}
         onAnimationFinish={onFinish}
@@ -69,22 +74,25 @@ export default function AnimatedSplash({ onFinish, autoPlay = true, loop = false
         style={styles.lottie}
         enableMergePathsAndroidForKitKatAndAbove
         cacheComposition
-        imageAssetsFolder={Platform.select({ android: "assets/lottie", ios: undefined })}
+        imageAssetsFolder={Platform.select({
+          android: 'assets/lottie',
+          ios: undefined,
+        })}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#000014" },
-  lottie: { width: "100%", height: "100%" },
-  fallback: { 
-    justifyContent: "center", 
-    alignItems: "center" 
+  container: { flex: 1, backgroundColor: '#000014' },
+  lottie: { width: '100%', height: '100%' },
+  fallback: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  fallbackText: { 
-    color: "#ffffff", 
-    fontSize: 32, 
-    fontWeight: "bold" 
-  }
+  fallbackText: {
+    color: '#ffffff',
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
 });

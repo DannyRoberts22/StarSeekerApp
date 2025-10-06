@@ -1,12 +1,15 @@
-import { StyledText } from '@/components/StyledText';
-import { View } from '@/components/Themed';
 import { StyleSheet } from 'react-native';
+
+import { StyledText } from '@/src/components/StyledText';
+import { View } from '@/src/components/Themed';
 
 export default function JourneyScreen() {
   return (
     <View style={styles.container}>
       <StyledText>Hello Journey</StyledText>
-      <StyledText style={styles.subtitle}>Calculate interstellar journey costs</StyledText>
+      <StyledText style={styles.subtitle}>
+        Calculate interstellar journey costs
+      </StyledText>
     </View>
   );
 }
