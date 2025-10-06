@@ -1,11 +1,17 @@
 import { z } from 'zod';
 
+export const LinkSchema = z.object({
+  hu: z.string(), // Hyperspace Units or similar
+  code: z.string(), // Gate code
+});
+export type Link = z.infer<typeof LinkSchema>;
+
 export const GateSchema = z.object({
   uuid: z.string().optional(),
   code: z.string(),
   name: z.string(),
-  links: z.string().nullable().optional(),
-  createdAt: z.string().nullable().optional(),
+  links: z.array(LinkSchema).nullable().optional(),
+  createdAt: z.number(),
   updatedAt: z.string().nullable().optional(),
 });
 export type Gate = z.infer<typeof GateSchema>;

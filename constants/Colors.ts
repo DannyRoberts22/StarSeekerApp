@@ -8,6 +8,11 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
+    // GateItem colors
+    pressedBackground: '#eef',
+    border: 'transparent',
+    secondaryText: '#555',
+    tertiaryText: '#999',
   },
   dark: {
     text: '#fff',
@@ -15,5 +20,10 @@ export default {
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
+    // GateItem colors
+    pressedBackground: '#222',
+    border: '#333',
+    secondaryText: '#aaa',
+    tertiaryText: '#666',
   },
 };

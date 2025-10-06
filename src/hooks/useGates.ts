@@ -9,7 +9,6 @@ export function useGates() {
     queryKey: ['gates'],
     queryFn: async () => {
       const data = await api.get<unknown>('/gates');
-      console.log('🚀 ~ useGates ~ data:', data);
       const parsed = z.array(GateSchema).parse(data);
       return parsed.sort((a, b) => a.name.localeCompare(b.name));
     },

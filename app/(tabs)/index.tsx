@@ -1,27 +1,27 @@
-import { FlatList, RefreshControl, View } from 'react-native';
+import React from 'react';
+import { FlatList, RefreshControl } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { StyledText } from '@/src/components/StyledText';
+import GateItem from '@/src/components/GateItem';
 import { useGates } from '@/src/hooks/useGates';
 
 export default function GatesScreen() {
-  const { data, refetch, isRefetching } = useGates();
-  console.log('🚀 ~ GatesScreen ~ data:', data);
+  const { data, isLoading, error, refetch, isRefetching } = useGates();
+
+  if (isLoading) return null;
+  if (error || !data) return null;
 
   return (
-    <View style={{ flex: 1, padding: 12, borderColor: 'red', borderWidth: 1 }}>
+    <SafeAreaView style={{ flex: 1, padding: 12 }}>
       <FlatList
         data={data}
         keyExtractor={g => g.code}
-        renderItem={({ item }) => (
-          <View>
-            <StyledText style={{ color: 'white' }}>{item.name}</StyledText>
-          </View>
-        )}
+        renderItem={({ item }) => <GateItem gate={item} />}
         refreshControl={
           <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
         }
         contentContainerStyle={{ paddingBottom: 40 }}
       />
-    </View>
+    </SafeAreaView>
   );
 }
