@@ -1,26 +1,27 @@
-import { StyleSheet } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 
 import { StyledText } from '@/src/components/StyledText';
-import { View } from '@/src/components/Themed';
+import { useGates } from '@/src/hooks/useGates';
 
 export default function GatesScreen() {
+  const { data, refetch, isRefetching } = useGates();
+  console.log('🚀 ~ GatesScreen ~ data:', data);
+
   return (
-    <View style={styles.container}>
-      <StyledText>Hello Gates</StyledText>
-      <StyledText>Display list of hyperspace gates</StyledText>
+    <View style={{ flex: 1, padding: 12, borderColor: 'red', borderWidth: 1 }}>
+      <FlatList
+        data={data}
+        keyExtractor={g => g.code}
+        renderItem={({ item }) => (
+          <View>
+            <StyledText style={{ color: 'white' }}>{item.name}</StyledText>
+          </View>
+        )}
+        refreshControl={
+          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+        }
+        contentContainerStyle={{ paddingBottom: 40 }}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-    textAlign: 'center',
-  },
-});

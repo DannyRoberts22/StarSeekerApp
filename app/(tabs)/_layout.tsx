@@ -6,12 +6,21 @@ import { Tabs } from 'expo-router';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/src/components/useColorScheme';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
+function TabBarIcon({
+  name,
+  color,
+}: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return (
+    <FontAwesome
+      size={24}
+      style={{ marginBottom: -3 }}
+      name={name}
+      color={color}
+    />
+  );
 }
 
 export default function TabLayout() {
@@ -21,8 +30,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors[colorScheme ?? 'light'].background,
@@ -33,35 +40,32 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Gates',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          // headerRight: () => (
-          //   <Link href="/modal" asChild>
-          //     <Pressable>
-          //       {({ pressed }) => (
-          //         <FontAwesome
-          //           name="info-circle"
-          //           size={25}
-          //           color={Colors[colorScheme ?? 'light'].text}
-          //           style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-          //         />
-          //       )}
-          //     </Pressable>
-          //   </Link>
-          // ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="rocket" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="journey"
+        name="calculator"
         options={{
-          title: 'Journey',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Calculator',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="calculator" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="routes"
+        name="route"
         options={{
           title: 'Routes',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="map-signs" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="memory"
+        options={{
+          title: 'Memory',
+          tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
         }}
       />
     </Tabs>
