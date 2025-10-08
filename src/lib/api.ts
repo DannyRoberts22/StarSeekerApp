@@ -20,7 +20,6 @@ async function request<T>(
     },
     signal,
   });
-  console.log('🚀 ~ request ~ res:', res);
   if (!res.ok) {
     const msg = await res.text().catch(() => '');
     throw new Error(`HTTP ${res.status}: ${msg || res.statusText}`);

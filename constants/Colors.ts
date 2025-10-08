@@ -13,6 +13,14 @@ export default {
     border: 'transparent',
     secondaryText: '#555',
     tertiaryText: '#999',
+    // Input and card colors
+    inputBackground: '#fff',
+    inputBorder: '#ddd',
+    cardBackground: '#fff',
+    cardShadow: 'rgba(0,0,0,0.08)',
+    // Additional UI colors
+    emptyStateText: '#666',
+    errorText: '#dc143c',
   },
   dark: {
     text: '#fff',
@@ -25,5 +33,13 @@ export default {
     border: '#333',
     secondaryText: '#aaa',
     tertiaryText: '#666',
+    // Input and card colors
+    inputBackground: '#1a1a2e',
+    inputBorder: '#333',
+    cardBackground: '#1a1a2e',
+    cardShadow: 'rgba(255,255,255,0.05)',
+    // Additional UI colors
+    emptyStateText: '#999',
+    errorText: '#ff6b6b',
   },
 };
