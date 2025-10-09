@@ -21,7 +21,11 @@ export default function GateDetails() {
 
   return (
     <>
-      <Stack.Screen options={{ title: data?.name || code }} />
+      <Stack.Screen
+        options={{
+          title: data?.name || code,
+        }}
+      />
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
