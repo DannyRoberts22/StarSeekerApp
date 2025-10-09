@@ -27,10 +27,11 @@ export default function RouteScreen() {
   const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
-  const { data: journey, isFetching } = useCheapestRoute(
-    submittedRoute.from,
-    submittedRoute.to
-  );
+  const {
+    data: journey,
+    isFetching,
+    error: routeError,
+  } = useCheapestRoute(submittedRoute.from, submittedRoute.to);
 
   const handleFindRoute = () => {
     if (from && to) {
@@ -48,8 +49,8 @@ export default function RouteScreen() {
   useEffect(() => {
     if (submittedRoute.from && submittedRoute.to && journey) {
       storage.pushRecentRoute({
-        from: submittedRoute.from,
-        to: submittedRoute.to,
+        from: journey.from.code,
+        to: journey.to.code,
         totalCost: journey.totalCost,
         savedAt: Date.now(),
       });
@@ -93,10 +94,21 @@ export default function RouteScreen() {
 
         {isFetching && <Loading label="Calculating route..." />}
 
+        {routeError && (
+          <ErrorView
+            message={`Route calculation failed: ${(routeError as Error).message}`}
+            onRetry={() => setSubmittedRoute({ ...submittedRoute })}
+          />
+        )}
+
         {journey && (
           <View style={styles.card}>
-            <StyledText style={styles.boldText}>From: {journey.from}</StyledText>
-            <StyledText style={styles.boldText}>To: {journey.to}</StyledText>
+            <StyledText style={styles.boldText}>
+              From: {journey.from.name} ({journey.from.code})
+            </StyledText>
+            <StyledText style={styles.boldText}>
+              To: {journey.to.name} ({journey.to.code})
+            </StyledText>
             <StyledText style={styles.text}>Hops:</StyledText>
             {journey.route.map((step, idx) => (
               <StyledText key={idx} style={styles.text}>
@@ -111,8 +123,8 @@ export default function RouteScreen() {
               title="Save to Journey Memory"
               onPress={() =>
                 storage.pushRecentRoute({
-                  from: journey.from,
-                  to: journey.to,
+                  from: journey.from.code,
+                  to: journey.to.code,
                   totalCost: journey.totalCost,
                   savedAt: Date.now(),
                 })

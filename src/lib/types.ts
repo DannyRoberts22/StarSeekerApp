@@ -29,8 +29,8 @@ export const TransportCostSchema = z.object({
 export type TransportCost = z.infer<typeof TransportCostSchema>;
 
 export const JourneySchema = z.object({
-  from: z.string(),
-  to: z.string(),
+  from: GateSchema,
+  to: GateSchema,
   route: z.array(z.string()),
   totalCost: z.number(),
 });
