@@ -11,6 +11,7 @@ import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGates } from '@/src/hooks/useGates';
 import { useRoute as useCheapestRoute } from '@/src/hooks/useRoute';
 import { storage } from '@/src/lib/storage';
+import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
 
 const Picker = RNPicker as unknown as typeof RNPicker; // RN 0.74+ might use @react-native-picker/picker
 
@@ -22,7 +23,7 @@ export default function RouteScreen() {
     from?: string;
     to?: string;
   }>({});
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   const { data: journey, isFetching } = useCheapestRoute(
@@ -123,7 +124,7 @@ export default function RouteScreen() {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({
@@ -151,7 +152,7 @@ const createStyles = (colorScheme: 'light' | 'dark') => {
       shadowColor: colors.cardShadow,
       shadowOpacity: 0.08,
       shadowRadius: 8,
-      borderWidth: colorScheme === 'dark' ? 1 : 0,
+      borderWidth: colorScheme === DARK ? 1 : 0,
       borderColor: colors.border,
     },
     text: {

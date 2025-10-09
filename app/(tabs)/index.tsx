@@ -6,10 +6,11 @@ import Colors from '@/constants/Colors';
 import GateItem from '@/src/components/GateItem';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGates } from '@/src/hooks/useGates';
+import { ColorScheme, LIGHT } from '@/src/lib/types';
 
 export default function GatesScreen() {
   const { data, isLoading, error, refetch, isRefetching } = useGates();
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   if (isLoading) return null;
@@ -30,7 +31,7 @@ export default function GatesScreen() {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({

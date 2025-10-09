@@ -8,11 +8,12 @@ import Loading from '@/src/components/Loading';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGate } from '@/src/hooks/useGate';
 import { storage } from '@/src/lib/storage';
+import { ColorScheme, LIGHT } from '@/src/lib/types';
 
 export default function GateDetails() {
   const { code } = useLocalSearchParams<{ code: string }>();
   const { data, isLoading, error, refetch } = useGate(code!);
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   if (isLoading) return <Loading label="Loading gate..." />;
@@ -63,7 +64,7 @@ export default function GateDetails() {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({

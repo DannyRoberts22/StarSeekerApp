@@ -4,11 +4,11 @@ import { useRouter } from 'expo-router';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/src/components/useColorScheme';
-import type { Gate } from '@/src/lib/types';
+import { ColorScheme, DARK, type Gate, LIGHT } from '@/src/lib/types';
 
 export default function GateItem({ gate }: { gate: Gate }) {
   const router = useRouter();
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   return (
@@ -34,7 +34,7 @@ export default function GateItem({ gate }: { gate: Gate }) {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({
@@ -45,7 +45,7 @@ const createStyles = (colorScheme: 'light' | 'dark') => {
       shadowOpacity: 0.06,
       shadowRadius: 8,
       marginBottom: 10,
-      borderWidth: colorScheme === 'dark' ? 1 : 0,
+      borderWidth: colorScheme === DARK ? 1 : 0,
       borderColor: colors.border,
     },
     containerPressed: {

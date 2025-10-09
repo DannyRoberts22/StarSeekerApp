@@ -17,6 +17,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import AnimatedSplash from '@/src/components/AnimatedSplash';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { persister, queryClient } from '@/src/lib/query';
+import { DARK } from '@/src/lib/types';
 
 import 'react-native-reanimated';
 
@@ -75,7 +76,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === DARK ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen
           name="(tabs)"

@@ -44,3 +44,9 @@ export const StatusSchema = z.object({
   version: z.string(),
 });
 export type Status = z.infer<typeof StatusSchema>;
+
+// Theme constants
+export const LIGHT = 'light' as const;
+export const DARK = 'dark' as const;
+
+export type ColorScheme = typeof LIGHT | typeof DARK;

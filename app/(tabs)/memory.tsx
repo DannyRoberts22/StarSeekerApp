@@ -6,11 +6,12 @@ import Colors from '@/constants/Colors';
 import EmptyState from '@/src/components/EmptyState';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { RecentRoute, storage } from '@/src/lib/storage';
+import { ColorScheme, LIGHT } from '@/src/lib/types';
 
 export default function Memory() {
   const [favGates, setFavGates] = useState<string[]>([]);
   const [recent, setRecent] = useState<RecentRoute[]>([]);
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   async function load() {
@@ -110,7 +111,7 @@ export default function Memory() {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({

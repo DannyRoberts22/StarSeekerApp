@@ -14,6 +14,7 @@ import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useTransport } from '@/src/hooks/useTransport';
+import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
 
 export default function Calculator() {
   const [distance, setDistance] = useState<string>('');
@@ -24,7 +25,7 @@ export default function Calculator() {
     passengers?: number;
     parking?: number;
   }>({});
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   const { data, error, isFetching } = useTransport(
@@ -111,7 +112,7 @@ export default function Calculator() {
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({
@@ -147,7 +148,7 @@ const createStyles = (colorScheme: 'light' | 'dark') => {
       shadowOpacity: 0.08,
       shadowRadius: 8,
       gap: 6,
-      borderWidth: colorScheme === 'dark' ? 1 : 0,
+      borderWidth: colorScheme === DARK ? 1 : 0,
       borderColor: colors.border,
     },
     cardTitle: {

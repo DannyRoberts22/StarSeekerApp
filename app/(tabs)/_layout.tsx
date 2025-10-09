@@ -5,6 +5,7 @@ import { Tabs } from 'expo-router';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/src/components/useColorScheme';
+import { LIGHT } from '@/src/lib/types';
 
 function TabBarIcon({
   name,
@@ -29,10 +30,10 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? LIGHT].tint,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: Colors[colorScheme ?? 'light'].background,
+          backgroundColor: Colors[colorScheme ?? LIGHT].background,
         },
       }}
     >

@@ -2,6 +2,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/src/components/useColorScheme';
+import { ColorScheme, LIGHT } from '@/src/lib/types';
 
 export default function ErrorView({
   message,
@@ -10,7 +11,7 @@ export default function ErrorView({
   message: string;
   onRetry?: () => void;
 }) {
-  const colorScheme = useColorScheme() ?? 'light';
+  const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
   return (
@@ -24,7 +25,7 @@ export default function ErrorView({
   );
 }
 
-const createStyles = (colorScheme: 'light' | 'dark') => {
+const createStyles = (colorScheme: ColorScheme) => {
   const colors = Colors[colorScheme];
 
   return StyleSheet.create({
