@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Colors from '@/constants/Colors';
 import EmptyState from '@/src/components/EmptyState';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { RecentRoute, storage } from '@/src/lib/storage';
 import { ColorScheme, LIGHT } from '@/src/lib/types';
@@ -49,7 +50,7 @@ export default function Memory() {
   const renderItem = ({ item }: { item: SectionItem }) => {
     switch (item.type) {
       case 'header':
-        return <Text style={styles.title}>Journey Memory</Text>;
+        return <StyledText style={styles.title}>Journey Memory</StyledText>;
       case 'refresh-button':
         return (
           <View style={styles.buttonContainer}>
@@ -58,7 +59,7 @@ export default function Memory() {
         );
       case 'section-title':
         return (
-          <Text
+          <StyledText
             style={
               item.data === 'Recent Routes'
                 ? styles.sectionTitleSpaced
@@ -66,7 +67,7 @@ export default function Memory() {
             }
           >
             {String(item.data)}
-          </Text>
+          </StyledText>
         );
       case 'empty-fav':
         return (
@@ -83,15 +84,15 @@ export default function Memory() {
           />
         );
       case 'fav-gate':
-        return <Text style={styles.text}>• {String(item.data)}</Text>;
+        return <StyledText style={styles.text}>• {String(item.data)}</StyledText>;
       case 'recent-route': {
         const route = item.data as RecentRoute;
         return (
-          <Text style={styles.text}>
+          <StyledText style={styles.text}>
             • {route.from} → {route.to}{' '}
             {route.totalCost != null ? `(cost: ${route.totalCost})` : ''} –{' '}
             {new Date(route.savedAt).toLocaleString()}
-          </Text>
+          </StyledText>
         );
       }
       default:

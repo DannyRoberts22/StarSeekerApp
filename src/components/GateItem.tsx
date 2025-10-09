@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { useRouter } from 'expo-router';
 
 import Colors from '@/constants/Colors';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { ColorScheme, DARK, type Gate, LIGHT } from '@/src/lib/types';
 
@@ -21,13 +22,13 @@ export default function GateItem({ gate }: { gate: Gate }) {
         pressed && styles.containerPressed,
       ]}
     >
-      <Text style={styles.title}>{gate.name}</Text>
+      <StyledText style={styles.title}>{gate.name}</StyledText>
       <View style={styles.detailsRow}>
-        <Text style={styles.codeText}>Code: {gate.code}</Text>
+        <StyledText style={styles.codeText}>Code: {gate.code}</StyledText>
         {gate.updatedAt ? (
-          <Text style={styles.updatedText}>
+          <StyledText style={styles.updatedText}>
             Updated: {new Date(gate.updatedAt).toLocaleDateString()}
-          </Text>
+          </StyledText>
         ) : null}
       </View>
     </Pressable>

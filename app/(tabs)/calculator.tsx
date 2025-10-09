@@ -3,7 +3,6 @@ import {
   Button,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -12,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
 import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useTransport } from '@/src/hooks/useTransport';
 import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
@@ -50,9 +50,9 @@ export default function Calculator() {
         contentContainerStyle={styles.innerContainer}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.title}>Journey Cost Calculator</Text>
+        <StyledText style={styles.title}>Journey Cost Calculator</StyledText>
 
-        <Text style={styles.label}>Distance (AU)</Text>
+        <StyledText style={styles.label}>Distance (AU)</StyledText>
         <TextInput
           inputMode="decimal"
           value={distance}
@@ -62,7 +62,7 @@ export default function Calculator() {
           style={styles.input}
         />
 
-        <Text style={styles.label}>Passengers</Text>
+        <StyledText style={styles.label}>Passengers</StyledText>
         <TextInput
           inputMode="numeric"
           value={passengers}
@@ -72,7 +72,7 @@ export default function Calculator() {
           style={styles.input}
         />
 
-        <Text style={styles.label}>Parking days</Text>
+        <StyledText style={styles.label}>Parking days</StyledText>
         <TextInput
           inputMode="numeric"
           value={parking}
@@ -88,23 +88,23 @@ export default function Calculator() {
         {error && <ErrorView message={(error as Error).message} />}
         {data && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Cheapest Option</Text>
-            <Text style={styles.text}>
+            <StyledText style={styles.cardTitle}>Cheapest Option</StyledText>
+            <StyledText style={styles.text}>
               Name: {data.recommendedTransport.name}
-            </Text>
-            <Text style={styles.text}>
+            </StyledText>
+            <StyledText style={styles.text}>
               Capacity: {data.recommendedTransport.capacity}
-            </Text>
-            <Text style={styles.text}>
+            </StyledText>
+            <StyledText style={styles.text}>
               Rate (per AU): {data.recommendedTransport.ratePerAu}
-            </Text>
+            </StyledText>
             <View style={{ height: 8 }} />
-            <Text style={styles.boldText}>
+            <StyledText style={styles.boldText}>
               Journey: {data.currency} {data.journeyCost.toFixed(2)}
-            </Text>
-            <Text style={styles.boldText}>
+            </StyledText>
+            <StyledText style={styles.boldText}>
               Parking: {data.currency} {data.parkingFee.toFixed(2)}
-            </Text>
+            </StyledText>
           </View>
         )}
       </ScrollView>

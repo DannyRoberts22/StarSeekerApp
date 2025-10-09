@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import Colors from '@/constants/Colors';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { ColorScheme, LIGHT } from '@/src/lib/types';
 
@@ -16,8 +17,8 @@ export default function EmptyState({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+      <StyledText style={styles.title}>{title}</StyledText>
+      {subtitle ? <StyledText style={styles.subtitle}>{subtitle}</StyledText> : null}
     </View>
   );
 }

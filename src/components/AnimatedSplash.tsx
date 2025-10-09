@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 import * as SplashScreen from 'expo-splash-screen';
 import LottieView from 'lottie-react-native';
+
+import { StyledText } from './StyledText';
 
 type Props = {
   onFinish?: () => void;
@@ -57,7 +59,7 @@ export default function AnimatedSplash({
   if (lottieError) {
     return (
       <View style={[styles.container, styles.fallback]} onLayout={onLayout}>
-        <Text style={styles.fallbackText}>StarSeeker</Text>
+        <StyledText style={styles.fallbackText}>StarSeeker</StyledText>
       </View>
     );
   }

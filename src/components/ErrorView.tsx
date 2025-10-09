@@ -1,6 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 import Colors from '@/constants/Colors';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { ColorScheme, LIGHT } from '@/src/lib/types';
 
@@ -16,10 +17,10 @@ export default function ErrorView({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.errorTitle}>Something went wrong</Text>
-      <Text selectable style={styles.message}>
+      <StyledText style={styles.errorTitle}>Something went wrong</StyledText>
+      <StyledText selectable style={styles.message}>
         {message}
-      </Text>
+      </StyledText>
       {onRetry ? <Button title="Try again" onPress={onRetry} /> : null}
     </View>
   );

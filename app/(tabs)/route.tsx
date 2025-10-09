@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Picker as RNPicker } from '@react-native-picker/picker';
@@ -7,13 +7,14 @@ import { Picker as RNPicker } from '@react-native-picker/picker';
 import Colors from '@/constants/Colors';
 import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGates } from '@/src/hooks/useGates';
 import { useRoute as useCheapestRoute } from '@/src/hooks/useRoute';
 import { storage } from '@/src/lib/storage';
 import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
 
-const Picker = RNPicker as unknown as typeof RNPicker; // RN 0.74+ might use @react-native-picker/picker
+const Picker = RNPicker as unknown as typeof RNPicker;
 
 export default function RouteScreen() {
   const { data: gates, isLoading, error, refetch } = useGates();
@@ -62,9 +63,9 @@ export default function RouteScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.innerContainer}>
-        <Text style={styles.title}>Cheapest Route</Text>
+        <StyledText style={styles.title}>Cheapest Route</StyledText>
 
-        <Text style={styles.label}>From</Text>
+        <StyledText style={styles.label}>From</StyledText>
         <Picker selectedValue={from} onValueChange={v => setFrom(v)}>
           <RNPicker.Item label="Select start gate" value={undefined} />
           {gateOptions.map(opt => (
@@ -76,7 +77,7 @@ export default function RouteScreen() {
           ))}
         </Picker>
 
-        <Text style={styles.label}>To</Text>
+        <StyledText style={styles.label}>To</StyledText>
         <Picker selectedValue={to} onValueChange={v => setTo(v)}>
           <RNPicker.Item label="Select target gate" value={undefined} />
           {gateOptions.map(opt => (
@@ -94,17 +95,17 @@ export default function RouteScreen() {
 
         {journey && (
           <View style={styles.card}>
-            <Text style={styles.boldText}>From: {journey.from}</Text>
-            <Text style={styles.boldText}>To: {journey.to}</Text>
-            <Text style={styles.text}>Hops:</Text>
+            <StyledText style={styles.boldText}>From: {journey.from}</StyledText>
+            <StyledText style={styles.boldText}>To: {journey.to}</StyledText>
+            <StyledText style={styles.text}>Hops:</StyledText>
             {journey.route.map((step, idx) => (
-              <Text key={idx} style={styles.text}>
+              <StyledText key={idx} style={styles.text}>
                 • {step}
-              </Text>
+              </StyledText>
             ))}
-            <Text style={styles.extraBoldText}>
+            <StyledText style={styles.extraBoldText}>
               Total Cost: {journey.totalCost}
-            </Text>
+            </StyledText>
             <View style={{ height: 8 }} />
             <Button
               title="Save to Journey Memory"

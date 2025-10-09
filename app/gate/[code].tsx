@@ -1,10 +1,11 @@
-import { Alert, Button, ScrollView, StyleSheet, Text } from 'react-native';
+import { Alert, Button, ScrollView, StyleSheet } from 'react-native';
 
 import { Stack, useLocalSearchParams } from 'expo-router';
 
 import Colors from '@/constants/Colors';
 import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGate } from '@/src/hooks/useGate';
 import { storage } from '@/src/lib/storage';
@@ -31,22 +32,22 @@ export default function GateDetails() {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <Text style={styles.title}>{data?.name}</Text>
-        <Text style={styles.text}>Code: {data?.code}</Text>
+        <StyledText style={styles.title}>{data?.name}</StyledText>
+        <StyledText style={styles.text}>Code: {data?.code}</StyledText>
         {data?.links ? (
-          <Text selectable style={styles.text}>
+          <StyledText selectable style={styles.text}>
             Links: {JSON.stringify(data.links)}
-          </Text>
+          </StyledText>
         ) : null}
         {data?.createdAt ? (
-          <Text style={styles.text}>
+          <StyledText style={styles.text}>
             Created: {new Date(data.createdAt).toLocaleString()}
-          </Text>
+          </StyledText>
         ) : null}
         {data?.updatedAt ? (
-          <Text style={styles.text}>
+          <StyledText style={styles.text}>
             Updated: {new Date(data.updatedAt).toLocaleString()}
-          </Text>
+          </StyledText>
         ) : null}
 
         <Button

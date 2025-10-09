@@ -1,6 +1,7 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import Colors from '@/constants/Colors';
+import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { ColorScheme, LIGHT } from '@/src/lib/types';
 
@@ -11,7 +12,7 @@ export default function Loading({ label = 'Loading...' }: { label?: string }) {
   return (
     <View style={styles.container}>
       <ActivityIndicator color={Colors[colorScheme].text} />
-      <Text style={styles.text}>{label}</Text>
+      <StyledText style={styles.text}>{label}</StyledText>
     </View>
   );
 }
