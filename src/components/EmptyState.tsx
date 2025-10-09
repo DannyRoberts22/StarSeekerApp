@@ -35,7 +35,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     title: {
       fontSize: 18,
       fontWeight: '600',
-      color: colors.text,
     },
     subtitle: {
       color: colors.emptyStateText,

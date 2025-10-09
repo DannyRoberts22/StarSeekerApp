@@ -54,7 +54,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     },
     title: {
       fontWeight: '700',
-      color: colors.text,
       fontSize: 16,
     },
     detailsRow: {

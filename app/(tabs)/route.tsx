@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,6 +10,7 @@ import Loading from '@/src/components/Loading';
 import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGates } from '@/src/hooks/useGates';
+import { useMinimumLoadingTime } from '@/src/hooks/useMinimumLoadingTime';
 import { useRoute as useCheapestRoute } from '@/src/hooks/useRoute';
 import { storage } from '@/src/lib/storage';
 import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
@@ -26,12 +27,17 @@ export default function RouteScreen() {
   }>({});
   const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
+  const scrollViewRef = useRef<ScrollView>(null);
+  const journeyCardRef = useRef<View>(null);
 
   const {
     data: journey,
     isFetching,
     error: routeError,
   } = useCheapestRoute(submittedRoute.from, submittedRoute.to);
+
+  const showInitialLoading = useMinimumLoadingTime(isLoading);
+  const showRouteLoading = useMinimumLoadingTime(isFetching);
 
   const handleFindRoute = () => {
     if (from && to) {
@@ -57,16 +63,36 @@ export default function RouteScreen() {
     }
   }, [submittedRoute.from, submittedRoute.to, journey]);
 
-  if (isLoading) return <Loading label="Loading gates..." />;
+  useEffect(() => {
+    if (journey && !showRouteLoading && journeyCardRef.current) {
+      journeyCardRef.current.measureLayout(
+        scrollViewRef.current as any,
+        (_x, y) => {
+          scrollViewRef.current?.scrollTo({
+            y: y - 100,
+            animated: true,
+          });
+        },
+        () => {
+          scrollViewRef.current?.scrollToEnd({ animated: true });
+        }
+      );
+    }
+  }, [journey, showRouteLoading]);
+
+  if (showInitialLoading) return <Loading label="Loading gates..." />;
   if (error)
     return <ErrorView message={(error as Error).message} onRetry={refetch} />;
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.innerContainer}>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={styles.innerContainer}
+      >
         <StyledText style={styles.title}>Cheapest Route</StyledText>
 
-        <StyledText style={styles.label}>From</StyledText>
+        <StyledText>From</StyledText>
         <Picker selectedValue={from} onValueChange={v => setFrom(v)}>
           <RNPicker.Item label="Select start gate" value={undefined} />
           {gateOptions.map(opt => (
@@ -78,7 +104,7 @@ export default function RouteScreen() {
           ))}
         </Picker>
 
-        <StyledText style={styles.label}>To</StyledText>
+        <StyledText>To</StyledText>
         <Picker selectedValue={to} onValueChange={v => setTo(v)}>
           <RNPicker.Item label="Select target gate" value={undefined} />
           {gateOptions.map(opt => (
@@ -92,7 +118,7 @@ export default function RouteScreen() {
 
         <Button title="Find route" onPress={handleFindRoute} />
 
-        {isFetching && <Loading label="Calculating route..." />}
+        {showRouteLoading && <Loading label="Calculating route..." />}
 
         {routeError && (
           <ErrorView
@@ -102,18 +128,16 @@ export default function RouteScreen() {
         )}
 
         {journey && (
-          <View style={styles.card}>
+          <View ref={journeyCardRef} style={styles.card}>
             <StyledText style={styles.boldText}>
               From: {journey.from.name} ({journey.from.code})
             </StyledText>
             <StyledText style={styles.boldText}>
               To: {journey.to.name} ({journey.to.code})
             </StyledText>
-            <StyledText style={styles.text}>Hops:</StyledText>
+            <StyledText>Hops:</StyledText>
             {journey.route.map((step, idx) => (
-              <StyledText key={idx} style={styles.text}>
-                • {step}
-              </StyledText>
+              <StyledText key={idx}>• {step}</StyledText>
             ))}
             <StyledText style={styles.extraBoldText}>
               Total Cost: {journey.totalCost}
@@ -152,10 +176,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     title: {
       fontSize: 22,
       fontWeight: '800',
-      color: colors.text,
-    },
-    label: {
-      color: colors.text,
     },
     card: {
       backgroundColor: colors.cardBackground,
@@ -168,17 +188,12 @@ const createStyles = (colorScheme: ColorScheme) => {
       borderWidth: colorScheme === DARK ? 1 : 0,
       borderColor: colors.border,
     },
-    text: {
-      color: colors.text,
-    },
     boldText: {
       fontWeight: '700',
-      color: colors.text,
     },
     extraBoldText: {
       fontWeight: '800',
       marginTop: 8,
-      color: colors.text,
     },
   });
 };

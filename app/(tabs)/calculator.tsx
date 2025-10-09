@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  Button,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View,
-} from 'react-native';
+import { Button, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Colors from '@/constants/Colors';
@@ -13,6 +7,7 @@ import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
 import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
+import { useMinimumLoadingTime } from '@/src/hooks/useMinimumLoadingTime';
 import { useTransport } from '@/src/hooks/useTransport';
 import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
 
@@ -34,6 +29,8 @@ export default function Calculator() {
     submittedParams.parking
   );
 
+  const showLoading = useMinimumLoadingTime(isFetching);
+
   const handleCalculate = () => {
     const d = distance ? Number(distance) : undefined;
     const p = passengers ? Number(passengers) : undefined;
@@ -52,7 +49,7 @@ export default function Calculator() {
       >
         <StyledText style={styles.title}>Journey Cost Calculator</StyledText>
 
-        <StyledText style={styles.label}>Distance (AU)</StyledText>
+        <StyledText>Distance (AU)</StyledText>
         <TextInput
           inputMode="decimal"
           value={distance}
@@ -62,7 +59,7 @@ export default function Calculator() {
           style={styles.input}
         />
 
-        <StyledText style={styles.label}>Passengers</StyledText>
+        <StyledText>Passengers</StyledText>
         <TextInput
           inputMode="numeric"
           value={passengers}
@@ -72,7 +69,7 @@ export default function Calculator() {
           style={styles.input}
         />
 
-        <StyledText style={styles.label}>Parking days</StyledText>
+        <StyledText>Parking days</StyledText>
         <TextInput
           inputMode="numeric"
           value={parking}
@@ -84,18 +81,16 @@ export default function Calculator() {
 
         <Button title="Calculate" onPress={handleCalculate} />
 
-        {isFetching && <Loading label="Calculating..." />}
+        {showLoading && <Loading label="Calculating..." />}
         {error && <ErrorView message={(error as Error).message} />}
         {data && (
           <View style={styles.card}>
             <StyledText style={styles.cardTitle}>Cheapest Option</StyledText>
-            <StyledText style={styles.text}>
-              Name: {data.recommendedTransport.name}
-            </StyledText>
-            <StyledText style={styles.text}>
+            <StyledText>Name: {data.recommendedTransport.name}</StyledText>
+            <StyledText>
               Capacity: {data.recommendedTransport.capacity}
             </StyledText>
-            <StyledText style={styles.text}>
+            <StyledText>
               Rate (per AU): {data.recommendedTransport.ratePerAu}
             </StyledText>
             <View style={{ height: 8 }} />
@@ -127,10 +122,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     title: {
       fontSize: 22,
       fontWeight: '800',
-      color: colors.text,
-    },
-    label: {
-      color: colors.text,
     },
     input: {
       borderWidth: 1,
@@ -155,14 +146,9 @@ const createStyles = (colorScheme: ColorScheme) => {
       fontSize: 16,
       fontWeight: '700',
       marginBottom: 4,
-      color: colors.text,
-    },
-    text: {
-      color: colors.text,
     },
     boldText: {
       fontWeight: '700',
-      color: colors.text,
     },
   });
 };

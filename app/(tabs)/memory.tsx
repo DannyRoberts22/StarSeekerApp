@@ -84,11 +84,11 @@ export default function Memory() {
           />
         );
       case 'fav-gate':
-        return <StyledText style={styles.text}>• {String(item.data)}</StyledText>;
+        return <StyledText>• {String(item.data)}</StyledText>;
       case 'recent-route': {
         const route = item.data as RecentRoute;
         return (
-          <StyledText style={styles.text}>
+          <StyledText>
             • {route.from} → {route.to}{' '}
             {route.totalCost != null ? `(cost: ${route.totalCost})` : ''} –{' '}
             {new Date(route.savedAt).toLocaleString()}
@@ -127,21 +127,15 @@ const createStyles = (colorScheme: ColorScheme) => {
     title: {
       fontSize: 22,
       fontWeight: '800',
-      color: colors.text,
     },
     sectionTitle: {
       fontSize: 16,
       fontWeight: '700',
-      color: colors.text,
     },
     sectionTitleSpaced: {
       fontSize: 16,
       fontWeight: '700',
       marginTop: 8,
-      color: colors.text,
-    },
-    text: {
-      color: colors.text,
     },
     listContainer: {
       flex: 1,

@@ -1,4 +1,6 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
+
+import LottieView from 'lottie-react-native';
 
 import Colors from '@/constants/Colors';
 import { StyledText } from '@/src/components/StyledText';
@@ -11,7 +13,18 @@ export default function Loading({ label = 'Loading...' }: { label?: string }) {
 
   return (
     <View style={styles.container}>
-      <ActivityIndicator color={Colors[colorScheme].text} />
+      <LottieView
+        source={require('../../assets/lottie/loading.json')}
+        autoPlay
+        loop
+        style={styles.lottie}
+        enableMergePathsAndroidForKitKatAndAbove
+        cacheComposition
+        imageAssetsFolder={Platform.select({
+          android: 'assets/lottie',
+          ios: undefined,
+        })}
+      />
       <StyledText style={styles.text}>{label}</StyledText>
     </View>
   );
@@ -22,12 +35,18 @@ const createStyles = (colorScheme: ColorScheme) => {
 
   return StyleSheet.create({
     container: {
-      padding: 24,
+      ...StyleSheet.absoluteFillObject,
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: 8,
+      gap: 24,
+      backgroundColor: colors.loadingOverlay,
+    },
+    lottie: {
+      width: 200,
+      height: 200,
     },
     text: {
-      color: colors.text,
+      fontSize: 18,
     },
   });
 };

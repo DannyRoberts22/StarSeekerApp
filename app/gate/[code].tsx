@@ -8,6 +8,7 @@ import Loading from '@/src/components/Loading';
 import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGate } from '@/src/hooks/useGate';
+import { useMinimumLoadingTime } from '@/src/hooks/useMinimumLoadingTime';
 import { storage } from '@/src/lib/storage';
 import { ColorScheme, LIGHT } from '@/src/lib/types';
 
@@ -17,7 +18,9 @@ export default function GateDetails() {
   const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
 
-  if (isLoading) return <Loading label="Loading gate..." />;
+  const showLoading = useMinimumLoadingTime(isLoading);
+
+  if (showLoading) return <Loading label="Loading gate..." />;
   if (error)
     return <ErrorView message={(error as Error).message} onRetry={refetch} />;
 
@@ -33,19 +36,19 @@ export default function GateDetails() {
         contentContainerStyle={styles.contentContainer}
       >
         <StyledText style={styles.title}>{data?.name}</StyledText>
-        <StyledText style={styles.text}>Code: {data?.code}</StyledText>
+        <StyledText>Code: {data?.code}</StyledText>
         {data?.links ? (
-          <StyledText selectable style={styles.text}>
+          <StyledText selectable>
             Links: {JSON.stringify(data.links)}
           </StyledText>
         ) : null}
         {data?.createdAt ? (
-          <StyledText style={styles.text}>
+          <StyledText>
             Created: {new Date(data.createdAt).toLocaleString()}
           </StyledText>
         ) : null}
         {data?.updatedAt ? (
-          <StyledText style={styles.text}>
+          <StyledText>
             Updated: {new Date(data.updatedAt).toLocaleString()}
           </StyledText>
         ) : null}
@@ -79,10 +82,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     title: {
       fontSize: 22,
       fontWeight: '800',
-      color: colors.text,
-    },
-    text: {
-      color: colors.text,
     },
   });
 };

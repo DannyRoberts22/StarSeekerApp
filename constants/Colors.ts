@@ -21,6 +21,7 @@ export default {
     // Additional UI colors
     emptyStateText: '#666',
     errorText: '#dc143c',
+    loadingOverlay: 'rgba(0, 0, 0, 0.8)',
   },
   dark: {
     text: '#fff',
@@ -41,5 +42,6 @@ export default {
     // Additional UI colors
     emptyStateText: '#999',
     errorText: '#ff6b6b',
+    loadingOverlay: 'rgba(0, 0, 0, 0.8)',
   },
 };

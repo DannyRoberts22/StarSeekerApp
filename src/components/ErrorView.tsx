@@ -18,9 +18,7 @@ export default function ErrorView({
   return (
     <View style={styles.container}>
       <StyledText style={styles.errorTitle}>Something went wrong</StyledText>
-      <StyledText selectable style={styles.message}>
-        {message}
-      </StyledText>
+      <StyledText selectable>{message}</StyledText>
       {onRetry ? <Button title="Try again" onPress={onRetry} /> : null}
     </View>
   );
@@ -37,9 +35,6 @@ const createStyles = (colorScheme: ColorScheme) => {
     errorTitle: {
       color: colors.errorText,
       fontWeight: '600',
-    },
-    message: {
-      color: colors.text,
     },
   });
 };
