@@ -7,9 +7,11 @@ import { Picker as RNPicker } from '@react-native-picker/picker';
 import Colors from '@/constants/Colors';
 import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
+import OfflineNotice from '@/src/components/OfflineNotice';
 import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { useGates } from '@/src/hooks/useGates';
+import { useIsOnline } from '@/src/hooks/useIsOnline';
 import { useMinimumLoadingTime } from '@/src/hooks/useMinimumLoadingTime';
 import { useRoute as useCheapestRoute } from '@/src/hooks/useRoute';
 import { storage } from '@/src/lib/storage';
@@ -25,10 +27,12 @@ export default function RouteScreen() {
     from?: string;
     to?: string;
   }>({});
+  const [showOfflineNotice, setShowOfflineNotice] = useState(false);
   const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
   const scrollViewRef = useRef<ScrollView>(null);
   const journeyCardRef = useRef<View>(null);
+  const isOnline = useIsOnline();
 
   const {
     data: journey,
@@ -40,6 +44,12 @@ export default function RouteScreen() {
   const showRouteLoading = useMinimumLoadingTime(isFetching);
 
   const handleFindRoute = () => {
+    if (!isOnline) {
+      setShowOfflineNotice(true);
+      return;
+    }
+
+    setShowOfflineNotice(false);
     if (from && to) {
       setSubmittedRoute({ from, to });
     }
@@ -80,6 +90,14 @@ export default function RouteScreen() {
     }
   }, [journey, showRouteLoading]);
 
+  useEffect(() => {
+    if (showOfflineNotice) {
+      setTimeout(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+      }, 100);
+    }
+  }, [showOfflineNotice]);
+
   if (showInitialLoading) return <Loading label="Loading gates..." />;
   if (error)
     return <ErrorView message={(error as Error).message} onRetry={refetch} />;
@@ -118,6 +136,9 @@ export default function RouteScreen() {
 
         <Button title="Find route" onPress={handleFindRoute} />
 
+        {showOfflineNotice && (
+          <OfflineNotice message="You need an internet connection to find routes." />
+        )}
         {showRouteLoading && <Loading label="Calculating route..." />}
 
         {routeError && (

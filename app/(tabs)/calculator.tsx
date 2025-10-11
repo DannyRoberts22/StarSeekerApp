@@ -5,8 +5,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '@/constants/Colors';
 import ErrorView from '@/src/components/ErrorView';
 import Loading from '@/src/components/Loading';
+import OfflineNotice from '@/src/components/OfflineNotice';
 import { StyledText } from '@/src/components/StyledText';
 import { useColorScheme } from '@/src/components/useColorScheme';
+import { useIsOnline } from '@/src/hooks/useIsOnline';
 import { useMinimumLoadingTime } from '@/src/hooks/useMinimumLoadingTime';
 import { useTransport } from '@/src/hooks/useTransport';
 import { ColorScheme, DARK, LIGHT } from '@/src/lib/types';
@@ -20,8 +22,10 @@ export default function Calculator() {
     passengers?: number;
     parking?: number;
   }>({});
+  const [showOfflineNotice, setShowOfflineNotice] = useState(false);
   const colorScheme = useColorScheme() ?? LIGHT;
   const styles = createStyles(colorScheme);
+  const isOnline = useIsOnline();
 
   const { data, error, isFetching } = useTransport(
     submittedParams.distance,
@@ -32,6 +36,12 @@ export default function Calculator() {
   const showLoading = useMinimumLoadingTime(isFetching);
 
   const handleCalculate = () => {
+    if (!isOnline) {
+      setShowOfflineNotice(true);
+      return;
+    }
+
+    setShowOfflineNotice(false);
     const d = distance ? Number(distance) : undefined;
     const p = passengers ? Number(passengers) : undefined;
     const prk = parking ? Number(parking) : undefined;
@@ -81,6 +91,9 @@ export default function Calculator() {
 
         <Button title="Calculate" onPress={handleCalculate} />
 
+        {showOfflineNotice && (
+          <OfflineNotice message="You need an internet connection to calculate journey costs." />
+        )}
         {showLoading && <Loading label="Calculating..." />}
         {error && <ErrorView message={(error as Error).message} />}
         {data && (

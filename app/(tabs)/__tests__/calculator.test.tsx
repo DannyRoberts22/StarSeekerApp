@@ -2,11 +2,13 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react-native';
 
+import { useIsOnline } from '@/src/hooks/useIsOnline';
 import { useTransport } from '@/src/hooks/useTransport';
 
 import Calculator from '../calculator';
 
 jest.mock('@/src/hooks/useTransport');
+jest.mock('@/src/hooks/useIsOnline');
 jest.mock('@/src/components/useColorScheme', () => ({
   useColorScheme: jest.fn(() => 'light'),
 }));
@@ -14,6 +16,7 @@ jest.mock('@/src/components/useColorScheme', () => ({
 const mockUseTransport = useTransport as jest.MockedFunction<
   typeof useTransport
 >;
+const mockUseIsOnline = useIsOnline as jest.MockedFunction<typeof useIsOnline>;
 
 describe('Calculator Screen', () => {
   beforeEach(() => {
@@ -22,6 +25,7 @@ describe('Calculator Screen', () => {
       error: null,
       isFetching: false,
     } as any);
+    mockUseIsOnline.mockReturnValue(true);
   });
 
   it('renders screen title', () => {
@@ -67,5 +71,22 @@ describe('Calculator Screen', () => {
     const button = getByText('Calculate');
     fireEvent.press(button);
     expect(button).toBeTruthy();
+  });
+
+  it('shows offline notice when offline and calculate is pressed', () => {
+    mockUseIsOnline.mockReturnValue(false);
+    const { getByText, getByTestId } = render(<Calculator />);
+    const button = getByText('Calculate');
+    fireEvent.press(button);
+    expect(getByTestId('offline-notice')).toBeTruthy();
+    expect(
+      getByText('You need an internet connection to calculate journey costs.')
+    ).toBeTruthy();
+  });
+
+  it('does not show offline notice when online', () => {
+    mockUseIsOnline.mockReturnValue(true);
+    const { queryByTestId } = render(<Calculator />);
+    expect(queryByTestId('offline-notice')).toBeNull();
   });
 });
