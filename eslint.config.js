@@ -30,40 +30,29 @@ export default tseslint.config(
       },
     },
     rules: {
-      // Import sorting - custom order as requested
       'simple-import-sort/imports': [
         'error',
         {
           groups: [
-            // 1. React and React-related packages first
             ['^react', '^react-native'],
-            // 2. Other external packages (node_modules)
             ['^@?\\w'],
-            // 3. Internal packages with @ prefix
             ['^@/'],
-            // 4. Relative imports (. and ..)
             ['^\\.'],
-            // 5. Side effect imports
             ['^\\u0000'],
           ],
         },
       ],
       'simple-import-sort/exports': 'error',
-      // Allow console for React Native development
       'no-console': 'off',
       
-      // General code quality
       'prefer-const': 'error',
       'no-var': 'error',
       
-      // TypeScript specific
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-require-imports': 'off', // Allow require() for React Native assets
-      
-      // Turn off some rules that conflict with Prettier
+      '@typescript-eslint/no-require-imports': 'off', 
       'quotes': 'off',
       'semi': 'off',
       'comma-dangle': 'off',
@@ -79,7 +68,27 @@ export default tseslint.config(
         test: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
         jest: 'readonly',
+      },
+    },
+  },
+  {
+    files: ['e2e/**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: {
+        device: 'readonly',
+        element: 'readonly',
+        by: 'readonly',
+        waitFor: 'readonly',
+        expect: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        beforeAll: 'readonly',
+        beforeEach: 'readonly',
+        afterAll: 'readonly',
+        afterEach: 'readonly',
       },
     },
   },
