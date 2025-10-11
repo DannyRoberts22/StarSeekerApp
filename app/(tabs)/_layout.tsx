@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform, View } from 'react-native';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
@@ -15,12 +16,24 @@ function TabBarIcon({
   color: string;
 }) {
   return (
-    <FontAwesome
-      size={24}
-      style={{ marginBottom: -3 }}
-      name={name}
-      color={color}
-    />
+    <View
+      style={{
+        width: 42,
+        height: 42,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <FontAwesome
+        size={22}
+        name={name}
+        color={color}
+        style={{
+          paddingHorizontal: 4,
+          paddingVertical: 4,
+        }}
+      />
+    </View>
   );
 }
 
@@ -34,6 +47,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors[colorScheme ?? LIGHT].background,
+          paddingTop: Platform.OS === 'android' ? 10 : 0,
         },
       }}
     >

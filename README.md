@@ -51,7 +51,9 @@ npm install -g expo-cli
 
 ## Running the App
 
-### Start the development server
+### Development with Expo Go (Recommended for Quick Start)
+
+The simplest way to run the app is using Expo Go:
 
 ```bash
 npm start
@@ -59,22 +61,46 @@ npm start
 
 This will start the Expo development server. You can then:
 
-- Press `i` to open iOS Simulator
-- Press `a` to open Android Emulator
-- Scan the QR code with Expo Go app on your physical device
+- Press `i` to open iOS Simulator (Expo Go will be automatically installed)
+- Press `a` to open Android Emulator (Expo Go will be automatically installed)
+- Scan the QR code with the [Expo Go app](https://expo.dev/go) on your physical device (download from App Store/Play Store)
 
-### Platform-specific commands
+**Note**:
+- Expo Go is automatically installed on simulators/emulators when you press `i` or `a`
+- For physical devices, you need to manually download Expo Go from the App Store (iOS) or Play Store (Android)
+- Expo Go has some limitations and doesn't support custom native modules. For full functionality, use a development build (see below).
+
+### Development Build (Full Functionality)
+
+For testing with custom native modules or running E2E tests, you need a development build:
+
+#### First Time Setup
+
+Generate native folders (required for Detox E2E tests):
+
+```bash
+npx expo prebuild
+```
+
+This creates the `ios/` and `android/` folders needed for native builds.
+
+#### Running with Development Build
 
 ```bash
 # iOS
-npm run ios
+npx expo run:ios
 
 # Android
-npm run android
+npx expo run:android
 
 # Web
 npm run web
 ```
+
+These commands will:
+1. Build the native app
+2. Install it on the simulator/emulator
+3. Start the Metro bundler
 
 **Experiencing issues?** See [Common Setup Issues](#common-setup-issues) for troubleshooting.
 
