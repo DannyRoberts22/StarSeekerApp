@@ -11,23 +11,23 @@ jest.mock('../useColorScheme', () => ({
 }));
 
 describe('Loading', () => {
-  it('renders correctly with default label', () => {
+  it('should render correctly with default label', () => {
     const { getByText } = render(<Loading />);
     expect(getByText('Loading...')).toBeTruthy();
   });
 
-  it('renders with custom label', () => {
+  it('should render with custom label', () => {
     const { getByText } = render(<Loading label="Fetching data..." />);
     expect(getByText('Fetching data...')).toBeTruthy();
   });
 
-  it('renders LottieView component', () => {
+  it('should render LottieView component', () => {
     const { UNSAFE_root } = render(<Loading />);
     const lottieView = UNSAFE_root.findAllByType('LottieView');
     expect(lottieView.length).toBeGreaterThan(0);
   });
 
-  it('applies fullscreen container styles', () => {
+  it('should apply fullscreen container styles', () => {
     const { UNSAFE_root } = render(<Loading />);
     const container = UNSAFE_root.findByType('View', { deep: false });
     const styleArray = Array.isArray(container.props.style)
@@ -46,7 +46,7 @@ describe('Loading', () => {
     );
   });
 
-  it('applies loading overlay background color for light theme', () => {
+  it('should apply loading overlay background color for light theme', () => {
     const { UNSAFE_root } = render(<Loading />);
     const container = UNSAFE_root.findByType('View', { deep: false });
     const styleArray = Array.isArray(container.props.style)
@@ -61,7 +61,7 @@ describe('Loading', () => {
     );
   });
 
-  it('applies loading overlay background color for dark theme', () => {
+  it('should apply loading overlay background color for dark theme', () => {
     const useColorScheme = require('../useColorScheme').useColorScheme;
     useColorScheme.mockReturnValue('dark');
 
@@ -79,7 +79,7 @@ describe('Loading', () => {
     );
   });
 
-  it('configures LottieView with correct props', () => {
+  it('should configure LottieView with correct props', () => {
     const { UNSAFE_root } = render(<Loading />);
     const lottieView = UNSAFE_root.findByType('LottieView');
 
@@ -91,14 +91,14 @@ describe('Loading', () => {
     expect(lottieView.props.cacheComposition).toBe(true);
   });
 
-  it('sets correct animation size', () => {
+  it('should set correct animation size', () => {
     const { UNSAFE_root } = render(<Loading />);
     const lottieView = UNSAFE_root.findByType('LottieView');
 
     expect(lottieView.props.style).toEqual({ width: 200, height: 200 });
   });
 
-  it('applies correct text styles', () => {
+  it('should apply correct text styles', () => {
     const { getByText } = render(<Loading label="Test" />);
     const textElement = getByText('Test');
     const flattenedStyles = textElement.props.style.flat(Infinity);
@@ -108,7 +108,7 @@ describe('Loading', () => {
     );
   });
 
-  it('configures imageAssetsFolder based on platform', () => {
+  it('should configure imageAssetsFolder based on platform', () => {
     const { UNSAFE_root } = render(<Loading />);
     const lottieView = UNSAFE_root.findByType('LottieView');
 

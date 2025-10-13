@@ -14,7 +14,7 @@ jest.mock('@/src/components/useColorScheme', () => ({
 const mockUseGates = useGates as jest.MockedFunction<typeof useGates>;
 
 describe('GatesScreen', () => {
-  it('renders without crashing when loading', () => {
+  it('should render without crashing when loading', () => {
     mockUseGates.mockReturnValue({
       data: undefined,
       isLoading: true,
@@ -27,7 +27,7 @@ describe('GatesScreen', () => {
     expect(UNSAFE_root).toBeTruthy();
   });
 
-  it('renders without crashing when error occurs', () => {
+  it('should render without crashing when error occurs', () => {
     mockUseGates.mockReturnValue({
       data: undefined,
       isLoading: false,
@@ -40,7 +40,7 @@ describe('GatesScreen', () => {
     expect(UNSAFE_root).toBeTruthy();
   });
 
-  it('renders gate list when data is available', () => {
+  it('should render gate list when data is available', () => {
     const mockGates = [
       {
         code: 'GATE001',

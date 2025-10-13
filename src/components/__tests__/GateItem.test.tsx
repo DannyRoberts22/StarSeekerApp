@@ -31,37 +31,37 @@ describe('GateItem', () => {
     mockPush.mockClear();
   });
 
-  it('renders correctly with gate data', () => {
+  it('should render correctly with gate data', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
 
     expect(getByText('Alpha Centauri Gate')).toBeTruthy();
     expect(getByText('Code: GATE001')).toBeTruthy();
   });
 
-  it('displays gate name', () => {
+  it('should display gate name', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     expect(getByText('Alpha Centauri Gate')).toBeTruthy();
   });
 
-  it('displays gate code', () => {
+  it('should display gate code', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     expect(getByText('Code: GATE001')).toBeTruthy();
   });
 
-  it('displays formatted update date when updatedAt is provided', () => {
+  it('should display formatted update date when updatedAt is provided', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     const updatedText = getByText(/Updated:/);
     expect(updatedText).toBeTruthy();
   });
 
-  it('does not display update date when updatedAt is not provided', () => {
+  it('should not display update date when updatedAt is not provided', () => {
     const gateWithoutUpdate = { ...mockGate, updatedAt: undefined };
     const { queryByText } = render(<GateItem gate={gateWithoutUpdate} />);
 
     expect(queryByText(/Updated:/)).toBeNull();
   });
 
-  it('navigates to gate detail screen when pressed', () => {
+  it('should navigate to gate detail screen when pressed', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
 
     const item = getByText('Alpha Centauri Gate');
@@ -73,7 +73,7 @@ describe('GateItem', () => {
     });
   });
 
-  it('applies correct title styles', () => {
+  it('should apply correct title styles', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     const titleElement = getByText('Alpha Centauri Gate');
     const flattenedStyles = titleElement.props.style.flat(Infinity);
@@ -86,7 +86,7 @@ describe('GateItem', () => {
     );
   });
 
-  it('applies secondary text color to code text in light theme', () => {
+  it('should apply secondary text color to code text in light theme', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     const codeElement = getByText('Code: GATE001');
     const flattenedStyles = codeElement.props.style.flat(Infinity);
@@ -99,7 +99,7 @@ describe('GateItem', () => {
     );
   });
 
-  it('applies tertiary text color to updated text in light theme', () => {
+  it('should apply tertiary text color to updated text in light theme', () => {
     const { getByText } = render(<GateItem gate={mockGate} />);
     const updatedElement = getByText(/Updated:/);
     const flattenedStyles = updatedElement.props.style.flat(Infinity);

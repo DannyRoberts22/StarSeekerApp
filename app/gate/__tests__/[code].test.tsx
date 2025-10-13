@@ -41,7 +41,7 @@ describe('GateDetails Screen', () => {
     jest.clearAllMocks();
   });
 
-  it('renders gate name', () => {
+  it('should render gate name', () => {
     mockUseGate.mockReturnValue({
       data: mockGateData,
       isLoading: false,
@@ -53,7 +53,7 @@ describe('GateDetails Screen', () => {
     expect(getByText('Alpha Centauri Gate')).toBeTruthy();
   });
 
-  it('renders gate code', () => {
+  it('should render gate code', () => {
     mockUseGate.mockReturnValue({
       data: mockGateData,
       isLoading: false,
@@ -65,7 +65,7 @@ describe('GateDetails Screen', () => {
     expect(getByText(/Code: GATE001/)).toBeTruthy();
   });
 
-  it('renders toggle favourite button', () => {
+  it('should render toggle favourite button', () => {
     mockUseGate.mockReturnValue({
       data: mockGateData,
       isLoading: false,
@@ -77,7 +77,7 @@ describe('GateDetails Screen', () => {
     expect(getByText('★ Toggle Favourite')).toBeTruthy();
   });
 
-  it('renders created date when available', () => {
+  it('should render created date when available', () => {
     mockUseGate.mockReturnValue({
       data: mockGateData,
       isLoading: false,
@@ -89,7 +89,7 @@ describe('GateDetails Screen', () => {
     expect(getByText(/Created:/)).toBeTruthy();
   });
 
-  it('renders updated date when available', () => {
+  it('should render updated date when available', () => {
     mockUseGate.mockReturnValue({
       data: mockGateData,
       isLoading: false,
@@ -101,7 +101,7 @@ describe('GateDetails Screen', () => {
     expect(getByText(/Updated:/)).toBeTruthy();
   });
 
-  it('handles toggle favourite button press', async () => {
+  it('should handle toggle favourite button press', async () => {
     (storage.toggleFavGate as jest.Mock).mockResolvedValue(['GATE001']);
 
     mockUseGate.mockReturnValue({

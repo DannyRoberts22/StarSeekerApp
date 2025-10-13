@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["jest", "@types/jest", "@testing-library/jest-native"]
+  },
+  "include": ["**/*.test.ts", "**/*.test.tsx"]
+}

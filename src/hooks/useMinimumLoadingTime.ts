@@ -11,7 +11,7 @@ export function useMinimumLoadingTime(
 ): boolean {
   const [showLoading, setShowLoading] = useState(isLoading);
   const loadingStartTimeRef = useRef<number | null>(null);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (isLoading && !loadingStartTimeRef.current) {

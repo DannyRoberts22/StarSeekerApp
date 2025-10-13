@@ -11,12 +11,12 @@ jest.mock('../useColorScheme', () => ({
 }));
 
 describe('EmptyState', () => {
-  it('renders correctly with only title', () => {
+  it('should render correctly with only title', () => {
     const { getByText } = render(<EmptyState title="No items found" />);
     expect(getByText('No items found')).toBeTruthy();
   });
 
-  it('renders with title and subtitle', () => {
+  it('should render with title and subtitle', () => {
     const { getByText } = render(
       <EmptyState title="No items found" subtitle="Try adding some items" />
     );
@@ -25,14 +25,14 @@ describe('EmptyState', () => {
     expect(getByText('Try adding some items')).toBeTruthy();
   });
 
-  it('does not render subtitle when not provided', () => {
+  it('should not render subtitle when not provided', () => {
     const { queryByText } = render(<EmptyState title="No items found" />);
 
     const texts = queryByText(/Try/);
     expect(texts).toBeNull();
   });
 
-  it('applies correct title styles', () => {
+  it('should apply correct title styles', () => {
     const { getByText } = render(<EmptyState title="No items found" />);
     const titleElement = getByText('No items found');
     const flattenedStyles = titleElement.props.style.flat(Infinity);
@@ -45,7 +45,7 @@ describe('EmptyState', () => {
     );
   });
 
-  it('applies correct subtitle text color in light theme', () => {
+  it('should apply correct subtitle text color in light theme', () => {
     const { getByText } = render(
       <EmptyState title="No items found" subtitle="Try again" />
     );
@@ -59,7 +59,7 @@ describe('EmptyState', () => {
     );
   });
 
-  it('applies correct subtitle text color in dark theme', () => {
+  it('should apply correct subtitle text color in dark theme', () => {
     const useColorScheme = require('../useColorScheme').useColorScheme;
     useColorScheme.mockReturnValue('dark');
 
@@ -76,7 +76,7 @@ describe('EmptyState', () => {
     );
   });
 
-  it('applies text align center to subtitle', () => {
+  it('should apply text align center to subtitle', () => {
     const { getByText } = render(
       <EmptyState
         title="No items found"
@@ -93,7 +93,7 @@ describe('EmptyState', () => {
     );
   });
 
-  it('handles long title text', () => {
+  it('should handle long title text', () => {
     const longTitle =
       'This is a very long title that should still render correctly in the empty state component';
     const { getByText } = render(<EmptyState title={longTitle} />);
@@ -101,7 +101,7 @@ describe('EmptyState', () => {
     expect(getByText(longTitle)).toBeTruthy();
   });
 
-  it('handles long subtitle text', () => {
+  it('should handle long subtitle text', () => {
     const longSubtitle =
       'This is a very long subtitle that provides detailed information about the empty state and what the user should do next';
     const { getByText } = render(
@@ -111,7 +111,7 @@ describe('EmptyState', () => {
     expect(getByText(longSubtitle)).toBeTruthy();
   });
 
-  it('handles empty string subtitle', () => {
+  it('should handle empty string subtitle', () => {
     const { queryByText } = render(
       <EmptyState title="No items found" subtitle="" />
     );
@@ -119,7 +119,7 @@ describe('EmptyState', () => {
     expect(queryByText('')).toBeNull();
   });
 
-  it('renders with special characters in title', () => {
+  it('should render with special characters in title', () => {
     const { getByText } = render(
       <EmptyState title="No items found! (0 results)" />
     );
@@ -127,7 +127,7 @@ describe('EmptyState', () => {
     expect(getByText('No items found! (0 results)')).toBeTruthy();
   });
 
-  it('renders with special characters in subtitle', () => {
+  it('should render with special characters in subtitle', () => {
     const { getByText } = render(
       <EmptyState
         title="No items"

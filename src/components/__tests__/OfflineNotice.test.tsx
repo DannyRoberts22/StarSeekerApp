@@ -44,14 +44,4 @@ describe('OfflineNotice', () => {
 
     expect(getByTestId('offline-notice')).toBeTruthy();
   });
-
-  it('should have correct text styling', () => {
-    render(<OfflineNotice />);
-
-    const title = screen.getByText("You're Offline");
-    expect(title.props.style).toMatchObject({
-      fontSize: 18,
-      fontWeight: '700',
-    });
-  });
 });

@@ -24,6 +24,10 @@ This directory contains end-to-end tests using Detox for the StarSeeker app.
 
 1. Install dependencies:
 
+   ```
+   nvm use
+   ```
+
    ```bash
    npm install
    ```

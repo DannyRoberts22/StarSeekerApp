@@ -11,12 +11,12 @@ jest.mock('../useColorScheme', () => ({
 }));
 
 describe('StyledText', () => {
-  it('renders correctly with default props', () => {
+  it('should render correctly with default props', () => {
     const { getByText } = render(<StyledText>Test Text</StyledText>);
     expect(getByText('Test Text')).toBeTruthy();
   });
 
-  it('applies SpaceMono font family', () => {
+  it('should apply SpaceMono font family', () => {
     const { getByText } = render(<StyledText>Test Text</StyledText>);
     const textElement = getByText('Test Text');
     const flattenedStyles = textElement.props.style.flat(Infinity);
@@ -25,7 +25,7 @@ describe('StyledText', () => {
     );
   });
 
-  it('applies default text color based on theme', () => {
+  it('should apply default text color based on theme', () => {
     const { getByText } = render(<StyledText>Test Text</StyledText>);
     const textElement = getByText('Test Text');
     const flattenedStyles = textElement.props.style.flat(Infinity);
@@ -34,7 +34,7 @@ describe('StyledText', () => {
     );
   });
 
-  it('applies custom styles when provided', () => {
+  it('should apply custom styles when provided', () => {
     const customStyle = { fontSize: 24, fontWeight: 'bold' as const };
     const { getByText } = render(
       <StyledText style={customStyle}>Test Text</StyledText>
@@ -46,7 +46,7 @@ describe('StyledText', () => {
     );
   });
 
-  it('preserves all TextProps', () => {
+  it('should preserve all TextProps', () => {
     const { getByText } = render(
       <StyledText numberOfLines={2} ellipsizeMode="tail">
         Test Text
@@ -57,7 +57,7 @@ describe('StyledText', () => {
     expect(textElement.props.ellipsizeMode).toBe('tail');
   });
 
-  it('renders with dark theme colors', () => {
+  it('should render with dark theme colors', () => {
     const useColorScheme = require('../useColorScheme').useColorScheme;
     useColorScheme.mockReturnValue('dark');
 
@@ -69,7 +69,7 @@ describe('StyledText', () => {
     );
   });
 
-  it('renders children correctly', () => {
+  it('should render children correctly', () => {
     const { getByText } = render(
       <StyledText>
         Multiple <StyledText>nested</StyledText> children
@@ -79,14 +79,14 @@ describe('StyledText', () => {
     expect(getByText('nested')).toBeTruthy();
   });
 
-  it('handles testID prop', () => {
+  it('should handle testID prop', () => {
     const { getByTestId } = render(
       <StyledText testID="custom-text">Test Text</StyledText>
     );
     expect(getByTestId('custom-text')).toBeTruthy();
   });
 
-  it('handles selectable prop', () => {
+  it('should handle selectable prop', () => {
     const { getByText } = render(
       <StyledText selectable>Selectable Text</StyledText>
     );

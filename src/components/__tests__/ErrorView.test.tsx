@@ -15,27 +15,27 @@ describe('ErrorView', () => {
     message: 'Something went wrong',
   };
 
-  it('renders correctly with required props', () => {
+  it('should render correctly with required props', () => {
     const { getAllByText } = render(<ErrorView {...defaultProps} />);
 
     const elements = getAllByText('Something went wrong');
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it('displays the error title', () => {
+  it('should display the error title', () => {
     const { getAllByText } = render(<ErrorView {...defaultProps} />);
     const elements = getAllByText('Something went wrong');
     expect(elements.length).toBeGreaterThan(0);
   });
 
-  it('displays the error message', () => {
+  it('should display the error message', () => {
     const { getByText } = render(
       <ErrorView message="Network connection failed" />
     );
     expect(getByText('Network connection failed')).toBeTruthy();
   });
 
-  it('makes error message selectable', () => {
+  it('should make error message selectable', () => {
     const { getAllByText } = render(<ErrorView {...defaultProps} />);
     const elements = getAllByText(defaultProps.message);
     const messageElement = elements.find(el => el.props.selectable);
@@ -43,7 +43,7 @@ describe('ErrorView', () => {
     expect(messageElement?.props.selectable).toBe(true);
   });
 
-  it('renders retry button when onRetry is provided', () => {
+  it('should render retry button when onRetry is provided', () => {
     const onRetry = jest.fn();
     const { getByText } = render(
       <ErrorView {...defaultProps} onRetry={onRetry} />
@@ -52,13 +52,13 @@ describe('ErrorView', () => {
     expect(getByText('Try again')).toBeTruthy();
   });
 
-  it('does not render retry button when onRetry is not provided', () => {
+  it('should not render retry button when onRetry is not provided', () => {
     const { queryByText } = render(<ErrorView {...defaultProps} />);
 
     expect(queryByText('Try again')).toBeNull();
   });
 
-  it('calls onRetry when retry button is pressed', () => {
+  it('should call onRetry when retry button is pressed', () => {
     const onRetry = jest.fn();
     const { getByText } = render(
       <ErrorView {...defaultProps} onRetry={onRetry} />
@@ -70,7 +70,7 @@ describe('ErrorView', () => {
     expect(onRetry).toHaveBeenCalledTimes(1);
   });
 
-  it('applies error text color to title in light theme', () => {
+  it('should apply error text color to title in light theme', () => {
     const { getAllByText } = render(<ErrorView {...defaultProps} />);
     const elements = getAllByText('Something went wrong');
     const titleElement = elements[0];
@@ -83,7 +83,7 @@ describe('ErrorView', () => {
     );
   });
 
-  it('applies error text color to title in dark theme', () => {
+  it('should apply error text color to title in dark theme', () => {
     const useColorScheme = require('../useColorScheme').useColorScheme;
     useColorScheme.mockReturnValue('dark');
 
@@ -99,7 +99,7 @@ describe('ErrorView', () => {
     );
   });
 
-  it('applies correct title font weight', () => {
+  it('should apply correct title font weight', () => {
     const { getAllByText } = render(<ErrorView {...defaultProps} />);
     const elements = getAllByText('Something went wrong');
     const titleElement = elements[0];
@@ -112,7 +112,7 @@ describe('ErrorView', () => {
     );
   });
 
-  it('handles long error messages', () => {
+  it('should handle long error messages', () => {
     const longMessage =
       'This is a very long error message that should still render correctly and be selectable for the user to copy if needed';
     const { getByText } = render(<ErrorView message={longMessage} />);
@@ -120,7 +120,7 @@ describe('ErrorView', () => {
     expect(getByText(longMessage)).toBeTruthy();
   });
 
-  it('handles multiple retry button presses', () => {
+  it('should handle multiple retry button presses', () => {
     const onRetry = jest.fn();
     const { getByText } = render(
       <ErrorView {...defaultProps} onRetry={onRetry} />
@@ -134,7 +134,7 @@ describe('ErrorView', () => {
     expect(onRetry).toHaveBeenCalledTimes(3);
   });
 
-  it('applies correct container padding and gap', () => {
+  it('should apply correct container padding and gap', () => {
     const { UNSAFE_root } = render(<ErrorView {...defaultProps} />);
     const container = UNSAFE_root.findByType('View', { deep: false });
     const styleArray = Array.isArray(container.props.style)

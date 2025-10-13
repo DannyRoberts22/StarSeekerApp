@@ -48,30 +48,30 @@ describe('RouteScreen', () => {
     mockUseIsOnline.mockReturnValue(true);
   });
 
-  it('renders screen title', () => {
+  it('should render screen title', () => {
     const { getByText } = render(<RouteScreen />);
     expect(getByText('Cheapest Route')).toBeTruthy();
   });
 
-  it('renders from and to pickers', () => {
+  it('should render from and to pickers', () => {
     const { getByText } = render(<RouteScreen />);
     expect(getByText('From')).toBeTruthy();
     expect(getByText('To')).toBeTruthy();
   });
 
-  it('renders find route button', () => {
+  it('should render find route button', () => {
     const { getByText } = render(<RouteScreen />);
     expect(getByText('Find route')).toBeTruthy();
   });
 
-  it('allows button press', () => {
+  it('should allow button press', () => {
     const { getByText } = render(<RouteScreen />);
     const button = getByText('Find route');
     fireEvent.press(button);
     expect(button).toBeTruthy();
   });
 
-  it('displays journey result when available', () => {
+  it('should display journey result when available', () => {
     mockUseRoute.mockReturnValue({
       data: {
         from: { code: 'G1', name: 'Gate 1' },
@@ -89,7 +89,7 @@ describe('RouteScreen', () => {
     expect(getByText(/Total Cost: 100/)).toBeTruthy();
   });
 
-  it('shows offline notice when offline and find route is pressed', () => {
+  it('should show offline notice when offline and find route is pressed', () => {
     mockUseIsOnline.mockReturnValue(false);
     const { getByText, getByTestId } = render(<RouteScreen />);
     const button = getByText('Find route');
@@ -100,7 +100,7 @@ describe('RouteScreen', () => {
     ).toBeTruthy();
   });
 
-  it('does not show offline notice when online', () => {
+  it('should not show offline notice when online', () => {
     mockUseIsOnline.mockReturnValue(true);
     const { queryByTestId } = render(<RouteScreen />);
     expect(queryByTestId('offline-notice')).toBeNull();

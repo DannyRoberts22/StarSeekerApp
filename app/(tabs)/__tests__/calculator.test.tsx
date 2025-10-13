@@ -28,24 +28,24 @@ describe('Calculator Screen', () => {
     mockUseIsOnline.mockReturnValue(true);
   });
 
-  it('renders screen title', () => {
+  it('should render screen title', () => {
     const { getByText } = render(<Calculator />);
     expect(getByText('Journey Cost Calculator')).toBeTruthy();
   });
 
-  it('renders input fields', () => {
+  it('should render input fields', () => {
     const { getByText } = render(<Calculator />);
     expect(getByText('Distance (AU)')).toBeTruthy();
     expect(getByText('Passengers')).toBeTruthy();
     expect(getByText('Parking days')).toBeTruthy();
   });
 
-  it('renders calculate button', () => {
+  it('should render calculate button', () => {
     const { getByText } = render(<Calculator />);
     expect(getByText('Calculate')).toBeTruthy();
   });
 
-  it('displays result when data is available', () => {
+  it('should display result when data is available', () => {
     mockUseTransport.mockReturnValue({
       data: {
         recommendedTransport: {
@@ -66,14 +66,14 @@ describe('Calculator Screen', () => {
     expect(getByText('Name: Starship X')).toBeTruthy();
   });
 
-  it('allows button press', () => {
+  it('should allow button press', () => {
     const { getByText } = render(<Calculator />);
     const button = getByText('Calculate');
     fireEvent.press(button);
     expect(button).toBeTruthy();
   });
 
-  it('shows offline notice when offline and calculate is pressed', () => {
+  it('should show offline notice when offline and calculate is pressed', () => {
     mockUseIsOnline.mockReturnValue(false);
     const { getByText, getByTestId } = render(<Calculator />);
     const button = getByText('Calculate');
@@ -84,7 +84,7 @@ describe('Calculator Screen', () => {
     ).toBeTruthy();
   });
 
-  it('does not show offline notice when online', () => {
+  it('should not show offline notice when online', () => {
     mockUseIsOnline.mockReturnValue(true);
     const { queryByTestId } = render(<Calculator />);
     expect(queryByTestId('offline-notice')).toBeNull();

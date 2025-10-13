@@ -26,14 +26,14 @@ describe('Memory Screen', () => {
     (storage.getRecentRoutes as jest.Mock).mockResolvedValue([]);
   });
 
-  it('renders screen title', async () => {
+  it('should render screen title', async () => {
     const { getByText } = render(<Memory />);
     await waitFor(() => {
       expect(getByText('Journey Memory')).toBeTruthy();
     });
   });
 
-  it('renders section titles', async () => {
+  it('should render section titles', async () => {
     const { getByText } = render(<Memory />);
     await waitFor(() => {
       expect(getByText('Favourite Gates')).toBeTruthy();
@@ -41,28 +41,28 @@ describe('Memory Screen', () => {
     });
   });
 
-  it('renders refresh button', async () => {
+  it('should render refresh button', async () => {
     const { getByText } = render(<Memory />);
     await waitFor(() => {
       expect(getByText('Refresh')).toBeTruthy();
     });
   });
 
-  it('displays empty state when no favourites', async () => {
+  it('should display empty state when no favourites', async () => {
     const { getByText } = render(<Memory />);
     await waitFor(() => {
       expect(getByText('No favourites yet')).toBeTruthy();
     });
   });
 
-  it('displays empty state when no recent routes', async () => {
+  it('should display empty state when no recent routes', async () => {
     const { getByText } = render(<Memory />);
     await waitFor(() => {
       expect(getByText('No recent routes')).toBeTruthy();
     });
   });
 
-  it('displays favourite gates when available', async () => {
+  it('should display favourite gates when available', async () => {
     (storage.getFavGates as jest.Mock).mockResolvedValue([
       'GATE001',
       'GATE002',
@@ -75,7 +75,7 @@ describe('Memory Screen', () => {
     });
   });
 
-  it('displays recent routes when available', async () => {
+  it('should display recent routes when available', async () => {
     (storage.getRecentRoutes as jest.Mock).mockResolvedValue([
       {
         from: 'G1',
@@ -91,7 +91,7 @@ describe('Memory Screen', () => {
     });
   });
 
-  it('refresh button reloads data', async () => {
+  it('should refresh button reloads data', async () => {
     const { getByText } = render(<Memory />);
 
     await waitFor(() => {

@@ -4,7 +4,12 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["jest", "@types/jest"],
+    "lib": ["es2017"]
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/__tests__/**/*", "jest.d.ts"],
+  "ts-node": {
+    "esm": true
+  }
 }
