@@ -100,7 +100,11 @@ export default function RouteScreen() {
 
   if (showInitialLoading) return <Loading label="Loading gates..." />;
   if (error)
-    return <ErrorView message={(error as Error).message} onRetry={refetch} />;
+    return (
+      <SafeAreaView style={styles.container}>
+        <ErrorView message={(error as Error).message} onRetry={refetch} />
+      </SafeAreaView>
+    );
 
   return (
     <SafeAreaView style={styles.container}>

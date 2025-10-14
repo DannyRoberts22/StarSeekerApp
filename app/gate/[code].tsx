@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Alert, Button, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 
@@ -32,7 +33,11 @@ export default function GateDetails() {
 
   if (showLoading) return <Loading label="Loading gate..." />;
   if (error)
-    return <ErrorView message={(error as Error).message} onRetry={refetch} />;
+    return (
+      <SafeAreaView style={styles.container}>
+        <ErrorView message={(error as Error).message} onRetry={refetch} />
+      </SafeAreaView>
+    );
 
   return (
     <ScrollView

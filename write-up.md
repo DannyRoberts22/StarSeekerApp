@@ -31,7 +31,7 @@
 
 ### Performance vs. Features
 
-- **Implemented custom `useMinimumLoadingTime` hook**: Ensures loading states are visible for at least 2 seconds to prevent jarring UI flashes, trading slight delay for better UX
+- **Implemented custom `useMinimumLoadingTime` hook**: Ensures loading states are visible for at least 1.5 seconds to prevent jarring UI flashes, trading slight delay for better UX
 - **Aggressive caching with TanStack Query**: 5-minute stale time for gate data balances fresh data with performance
 - **Optimistic UI rendering**: Components render immediately with loading states rather than waiting for all data, prioritizing perceived performance and user engagement over complete data availability before display.
 

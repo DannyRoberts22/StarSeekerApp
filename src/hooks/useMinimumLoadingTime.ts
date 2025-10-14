@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
  */
 export function useMinimumLoadingTime(
   isLoading: boolean,
-  minimumMs: number = 2000
+  minimumMs: number = 1500
 ): boolean {
   const [showLoading, setShowLoading] = useState(isLoading);
   const loadingStartTimeRef = useRef<number | null>(null);

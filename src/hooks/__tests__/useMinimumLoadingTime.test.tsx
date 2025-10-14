@@ -64,7 +64,7 @@ describe('useMinimumLoadingTime', () => {
     expect(result.current).toBe(false);
   });
 
-  it('should use default minimum time of 2000ms when not specified', () => {
+  it('should use default minimum time of 1500ms when not specified', () => {
     const { result, rerender } = renderHook(
       ({ isLoading }: { isLoading: boolean }) =>
         useMinimumLoadingTime(isLoading),
@@ -81,7 +81,7 @@ describe('useMinimumLoadingTime', () => {
     expect(result.current).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(1499);
+      jest.advanceTimersByTime(999);
     });
     expect(result.current).toBe(true);
 
