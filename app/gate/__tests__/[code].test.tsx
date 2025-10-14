@@ -14,6 +14,7 @@ jest.mock('@/src/hooks/useMinimumLoadingTime');
 jest.mock('@/src/lib/storage', () => ({
   storage: {
     toggleFavGate: jest.fn(),
+    getFavGates: jest.fn(),
   },
 }));
 jest.mock('@/src/components/useColorScheme', () => ({
@@ -48,6 +49,7 @@ describe('GateDetails Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseMinimumLoadingTime.mockReturnValue(false);
+    (storage.getFavGates as jest.Mock).mockResolvedValue([]);
   });
 
   it('should render gate name', () => {
@@ -71,7 +73,7 @@ describe('GateDetails Screen', () => {
     } as unknown as ReturnType<typeof useGate>);
 
     const { getByText } = render(<GateDetails />);
-    expect(getByText(/Code: GATE001/)).toBeTruthy();
+    expect(getByText('GATE001')).toBeTruthy();
   });
 
   it('should render toggle favourite button', () => {
@@ -82,8 +84,8 @@ describe('GateDetails Screen', () => {
       refetch: jest.fn(),
     } as unknown as ReturnType<typeof useGate>);
 
-    const { getByText } = render(<GateDetails />);
-    expect(getByText('★ Toggle Favourite')).toBeTruthy();
+    const { getByTestId } = render(<GateDetails />);
+    expect(getByTestId('favorite-button')).toBeTruthy();
   });
 
   it('should render created date when available', () => {
@@ -95,7 +97,7 @@ describe('GateDetails Screen', () => {
     } as unknown as ReturnType<typeof useGate>);
 
     const { getByText } = render(<GateDetails />);
-    expect(getByText(/Created:/)).toBeTruthy();
+    expect(getByText('Created')).toBeTruthy();
   });
 
   it('should render updated date when available', () => {
@@ -107,11 +109,12 @@ describe('GateDetails Screen', () => {
     } as unknown as ReturnType<typeof useGate>);
 
     const { getByText } = render(<GateDetails />);
-    expect(getByText(/Updated:/)).toBeTruthy();
+    expect(getByText('Updated')).toBeTruthy();
   });
 
   it('should handle toggle favourite button press', async () => {
     (storage.toggleFavGate as jest.Mock).mockResolvedValue(['GATE001']);
+    (storage.getFavGates as jest.Mock).mockResolvedValue([]);
 
     mockUseGate.mockReturnValue({
       data: mockGateData,
@@ -120,8 +123,8 @@ describe('GateDetails Screen', () => {
       refetch: jest.fn(),
     } as unknown as ReturnType<typeof useGate>);
 
-    const { getByText } = render(<GateDetails />);
-    const button = getByText('★ Toggle Favourite');
+    const { getByTestId } = render(<GateDetails />);
+    const button = getByTestId('favorite-button');
 
     fireEvent.press(button);
 
