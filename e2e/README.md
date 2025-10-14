@@ -22,6 +22,8 @@ This directory contains end-to-end tests using Detox for the StarSeeker app.
 
 ## Setup
 
+**Important**: E2E tests require a development build, not Expo Go. You must first generate native folders before running E2E tests.
+
 1. Install dependencies:
 
    ```
@@ -32,7 +34,15 @@ This directory contains end-to-end tests using Detox for the StarSeeker app.
    npm install
    ```
 
-2. Build the app for testing:
+2. Generate native folders (required for Detox E2E tests):
+
+   ```bash
+   npx expo prebuild
+   ```
+
+   This creates the `ios/` and `android/` folders needed for native builds.
+
+3. Build the app for testing:
 
    ```bash
    # iOS

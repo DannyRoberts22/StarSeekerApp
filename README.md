@@ -41,7 +41,28 @@ brew install watchman
 npm install
 ```
 
-### 4. Install Expo CLI (optional)
+### 4. Configure API Settings
+
+The app requires API configuration to connect to the Star Seeker backend. Create an `app.config.ts` file in the project root:
+
+```typescript
+export default {
+  expo: {
+    name: 'Star Seeker',
+    slug: 'star-seeker',
+    extra: {
+      API_URL: 'https://hstc-api.testing.keyholding.com',
+      API_KEY: 'YOUR_API_KEY_HERE',
+    },
+  },
+};
+```
+
+**Important**:
+
+- Make sure to create this file before running the app, or you'll get API connection errors
+
+### 5. Install Expo CLI (optional)
 
 While not required (npm scripts handle this), you can install Expo CLI globally:
 
@@ -66,6 +87,7 @@ This will start the Expo development server. You can then:
 - Scan the QR code with the [Expo Go app](https://expo.dev/go) on your physical device (download from App Store/Play Store)
 
 **Note**:
+
 - Expo Go is automatically installed on simulators/emulators when you press `i` or `a`
 - For physical devices, you need to manually download Expo Go from the App Store (iOS) or Play Store (Android)
 - Expo Go has some limitations and doesn't support custom native modules. For full functionality, use a development build (see below).
@@ -98,6 +120,7 @@ npm run web
 ```
 
 These commands will:
+
 1. Build the native app
 2. Install it on the simulator/emulator
 3. Start the Metro bundler

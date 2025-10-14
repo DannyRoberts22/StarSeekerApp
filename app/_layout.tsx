@@ -82,6 +82,7 @@ function RootLayoutNav() {
           name="(tabs)"
           options={{ headerShown: false, title: 'StarSeeker' }}
         />
+        <Stack.Screen name="gate/[code]" options={{ title: 'Gate Details' }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
